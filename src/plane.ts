@@ -1,11 +1,10 @@
-#!/usr/bin/env node
 import { Command } from "commander";
 import { homedir } from "os";
 
 const program = new Command();
 const API_BASE = "https://api.plane.so/v1";
 
-async function request(method, endpoint, body, params, apiKey) {
+async function request(method: string, endpoint: string, body?: any, params?: Record<string,string>, apiKey?: string) {
   apiKey = apiKey || process.env.PLANE_API_KEY;
   if (!apiKey) {
     console.error(
@@ -18,11 +17,11 @@ async function request(method, endpoint, body, params, apiKey) {
     const qs = new URLSearchParams(params).toString();
     url += `?${qs}`;
   }
-  const headers = {
+  const headers: Record<string,string> = {
     Authorization: `Bearer ${apiKey}`,
     "Content-Type": "application/json",
   };
-  const opts = { method, headers };
+  const opts: any = { method, headers };
   if (body) opts.body = JSON.stringify(body);
   try {
     const res = await fetch(url, opts);
@@ -32,8 +31,8 @@ async function request(method, endpoint, body, params, apiKey) {
     } catch {
       return text;
     }
-  } catch (err) {
-    console.error("Request failed:", err.message);
+  } catch (err: any) {
+    console.error("Request failed:", err?.message ?? err);
     process.exit(1);
   }
 }
@@ -46,7 +45,7 @@ program
 program
   .command("list <what>")
   .option("--project <id>")
-  .action(async (what, options) => {
+  .action(async (what: string, options: any) => {
     const opts = program.opts();
     if (what === "workspaces") {
       const res = await request("GET", "/workspaces", null, null, opts.apiKey);
@@ -59,19 +58,19 @@ program
       return;
     }
     if (what === "tasks") {
-      const params = {};
+      const params: Record<string,string> = {};
       if (options.project) params.project = options.project;
       const res = await request("GET", "/tasks", null, params, opts.apiKey);
       console.log(JSON.stringify(res, null, 2));
       return;
     }
-    console.error("Unknown list target: ", what);
+    console.error("Unknown list target:", what);
     process.exit(1);
   });
 
 program
   .command("show <type> <id>")
-  .action(async (type, id) => {
+  .action(async (type: string, id: string) => {
     const opts = program.opts();
     if (type !== "task") {
       console.error("Unsupported show type", type);
@@ -86,7 +85,7 @@ program
   .option("--title <title>")
   .option("--project <id>")
   .option("--description <desc>")
-  .action(async (type, titlePos, options) => {
+  .action(async (type: string, titlePos: string | undefined, options: any) => {
     const opts = program.opts();
     if (type !== "task") {
       console.error("Unsupported create type", type);
@@ -97,7 +96,7 @@ program
       console.error("Missing title");
       process.exit(1);
     }
-    const body = { title };
+    const body: any = { title };
     if (options.project) body.project = options.project;
     if (options.description) body.description = options.description;
     const res = await request("POST", "/tasks", body, null, opts.apiKey);
@@ -109,13 +108,13 @@ program
   .option("--title <title>")
   .option("--description <desc>")
   .option("--status <status>")
-  .action(async (type, id, options) => {
+  .action(async (type: string, id: string, options: any) => {
     const opts = program.opts();
     if (type !== "task") {
       console.error("Unsupported update type", type);
       process.exit(1);
     }
-    const body = {};
+    const body: any = {};
     if (options.title) body.title = options.title;
     if (options.description) body.description = options.description;
     if (options.status) body.status = options.status;
@@ -126,7 +125,7 @@ program
 program
   .command("comment <type> <id>")
   .requiredOption("--body <text>")
-  .action(async (type, id, options) => {
+  .action(async (type: string, id: string, options: any) => {
     const opts = program.opts();
     if (type !== "task") {
       console.error("Unsupported comment type", type);
@@ -139,7 +138,7 @@ program
 program
   .command("assign <type> <id>")
   .requiredOption("--assignee <userId>")
-  .action(async (type, id, options) => {
+  .action(async (type: string, id: string, options: any) => {
     const opts = program.opts();
     if (type !== "task") {
       console.error("Unsupported assign type", type);
@@ -151,7 +150,7 @@ program
 
 program
   .command("delete <type> <id>")
-  .action(async (type, id) => {
+  .action(async (type: string, id: string) => {
     const opts = program.opts();
     if (type !== "task") {
       console.error("Unsupported delete type", type);
