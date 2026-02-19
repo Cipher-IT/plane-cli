@@ -1,0 +1,13 @@
+{
+  "name": "plane-cli",
+  "version": "0.1.0",
+  "description": "CLI for api.plane.so",
+  "bin": {
+    "plane": "bin/plane.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["plane","cli"],
+  "license": "MIT"
+}
