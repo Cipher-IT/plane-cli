@@ -2,11 +2,22 @@
   "name": "plane-cli",
   "version": "0.1.0",
   "description": "CLI for api.plane.so",
+  "packageManager": "pnpm@8.8.0",
   "bin": {
-    "plane": "bin/plane.js"
+    "plane": "dist/plane.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/plane.js",
+    "dev": "ts-node src/plane.ts"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.8.1"
   },
   "keywords": ["plane","cli"],
   "license": "MIT"
