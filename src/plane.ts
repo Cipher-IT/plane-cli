@@ -2,6 +2,7 @@
 import { Command } from "commander";
 import { listProjects } from "./projects";
 import { listWorkItems } from "./work-items";
+import { listStates } from "./states";
 
 const program = new Command();
 program.name("plane").description("CLI for api.plane.so").version("1.0.0");
@@ -15,6 +16,8 @@ program
   .command("work-items")
   .description("Manage work items")
   .addCommand(listWorkItems);
+
+program.command("states").description("Manage states").addCommand(listStates);
 
 program.commands.forEach((cmd) => {
   cmd.requiredOption(
