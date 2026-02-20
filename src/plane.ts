@@ -5,6 +5,7 @@ import { listWorkItems } from "./work-items";
 import { listStates } from "./states";
 import { listLabels } from "./labels";
 import { listCycles, listCyclesWorkItems } from "./cycles";
+import { getCurrentUser } from "./users";
 
 const program = new Command();
 program.name("plane").description("CLI for api.plane.so").version("1.0.0");
@@ -26,6 +27,8 @@ program
   .description("Manage cycles")
   .addCommand(listCycles)
   .addCommand(listCyclesWorkItems);
+
+program.command("users").description("Manage users").addCommand(getCurrentUser);
 
 program.commands.forEach((cmd) => {
   cmd.requiredOption(
