@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-import { Command, Option } from "commander";
+import { Command } from "commander";
 import { listProjects } from "./projects";
+import { listWorkItems } from "./work-items";
 
 const program = new Command();
 program.name("plane").description("CLI for api.plane.so").version("1.0.0");
@@ -9,6 +10,11 @@ program
   .command("projects")
   .description("Manage projects")
   .addCommand(listProjects);
+
+program
+  .command("work-items")
+  .description("Manage work items")
+  .addCommand(listWorkItems);
 
 program.commands.forEach((cmd) => {
   cmd.requiredOption(
@@ -26,7 +32,7 @@ program.commands.forEach((cmd) => {
     "Workspace slug",
     process.env.PLANE_WORKSPACE_SLUG,
   );
-  cmd.addOption(new Option("-j, --json", "Print in JSON format"));
+  cmd.option("-j, --json", "Print in JSON format");
 });
 
 program.parse();
