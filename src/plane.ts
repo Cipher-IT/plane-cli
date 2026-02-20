@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import { listProjects } from "./projects";
-import { listWorkItems } from "./work-items";
+import { createWorkItem, listWorkItems } from "./work-items";
 import { listStates } from "./states";
 import { listLabels } from "./labels";
 import { createCycle, listCycles, listCyclesWorkItems } from "./cycles";
@@ -18,7 +18,8 @@ program
 program
   .command("work-items")
   .description("Manage work items")
-  .addCommand(listWorkItems);
+  .addCommand(listWorkItems)
+  .addCommand(createWorkItem);
 
 program.command("states").description("Manage states").addCommand(listStates);
 program.command("labels").description("Manage labels").addCommand(listLabels);

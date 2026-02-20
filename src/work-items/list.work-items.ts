@@ -28,10 +28,15 @@ export const renderWorkItem = (workItem: any) => {
   return {
     id: workItem.id,
     name: workItem.name,
-    state: workItem.state.name,
-    labels: workItem.labels.map((label: any) => label.name),
-    assignees: workItem.assignees.map((user: any) =>
-      `${user.first_name} ${user.last_name}`.trim(),
-    ),
+    state: (workItem.state && workItem.state.name) || null,
+    labels:
+      (workItem.labels && workItem.labels.map((label: any) => label.name)) ||
+      [],
+    assignees:
+      (workItem.assignees &&
+        workItem.assignees.map((user: any) =>
+          `${user.first_name} ${user.last_name}`.trim(),
+        )) ||
+      [],
   };
 };
