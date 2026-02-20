@@ -1,0 +1,38 @@
+import { Command } from "commander";
+import { checkRequiredOptionsAndReturn, requestPlaneAPi } from "../../utils";
+
+export const listCyclesWorkItems = new Command("list-work-items")
+  .description("List cycle work items")
+  .argument("<projectId>", "Project ID")
+  .argument("<cycleId>", "Cycle ID")
+  .action(async (projectId, cycleId, __, cmd: Command) => {
+    if (cmd.parent == null) return;
+    const { apiKey, apiBase, workspaceSlug, json } =
+      checkRequiredOptionsAndReturn(cmd);
+    const result = await requestPlaneAPi({
+      apiBase,
+      apiKey,
+      endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/cycles/${cycleId}/cycle-issues`,
+      method: "GET",
+      params: {
+        expand: "state,labels,assignees",
+      },
+    });
+    if (json) {
+      console.log(JSON.stringify(result));
+    } else {
+      console.table(result.results.map(renderCycleWorkItem));
+    }
+  });
+
+export const renderCycleWorkItem = (workItem: any) => {
+  return {
+    id: workItem.id,
+    name: workItem.name,
+    state: workItem.state.name,
+    labels: workItem.labels.map((label: any) => label.name),
+    assignees: workItem.assignees.map((user: any) =>
+      `${user.first_name} ${user.last_name}`.trim(),
+    ),
+  };
+};

@@ -4,6 +4,7 @@ import { listProjects } from "./projects";
 import { listWorkItems } from "./work-items";
 import { listStates } from "./states";
 import { listLabels } from "./labels";
+import { listCycles, listCyclesWorkItems } from "./cycles";
 
 const program = new Command();
 program.name("plane").description("CLI for api.plane.so").version("1.0.0");
@@ -20,6 +21,11 @@ program
 
 program.command("states").description("Manage states").addCommand(listStates);
 program.command("labels").description("Manage labels").addCommand(listLabels);
+program
+  .command("cycles")
+  .description("Manage cycles")
+  .addCommand(listCycles)
+  .addCommand(listCyclesWorkItems);
 
 program.commands.forEach((cmd) => {
   cmd.requiredOption(
