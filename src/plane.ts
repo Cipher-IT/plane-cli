@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { listProjects } from "./projects";
 import { listWorkItems } from "./work-items";
 import { listStates } from "./states";
+import { listLabels } from "./labels";
 
 const program = new Command();
 program.name("plane").description("CLI for api.plane.so").version("1.0.0");
@@ -18,6 +19,7 @@ program
   .addCommand(listWorkItems);
 
 program.command("states").description("Manage states").addCommand(listStates);
+program.command("labels").description("Manage labels").addCommand(listLabels);
 
 program.commands.forEach((cmd) => {
   cmd.requiredOption(
