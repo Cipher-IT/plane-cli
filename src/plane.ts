@@ -4,7 +4,7 @@ import { listProjects } from "./projects";
 import { listWorkItems } from "./work-items";
 import { listStates } from "./states";
 import { listLabels } from "./labels";
-import { listCycles, listCyclesWorkItems } from "./cycles";
+import { createCycle, listCycles, listCyclesWorkItems } from "./cycles";
 import { getCurrentUser } from "./users";
 
 const program = new Command();
@@ -26,7 +26,8 @@ program
   .command("cycles")
   .description("Manage cycles")
   .addCommand(listCycles)
-  .addCommand(listCyclesWorkItems);
+  .addCommand(listCyclesWorkItems)
+  .addCommand(createCycle);
 
 program.command("users").description("Manage users").addCommand(getCurrentUser);
 

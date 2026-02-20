@@ -50,6 +50,7 @@ export const requestPlaneAPi = async ({
   method,
   body,
   params,
+  no_v1,
 }: {
   apiKey: string;
   apiBase: string;
@@ -57,8 +58,9 @@ export const requestPlaneAPi = async ({
   method: string;
   body?: any;
   params?: any;
+  no_v1?: boolean;
 }) => {
-  let url = `${apiBase}/api/v1/${endpoint}`;
+  let url = `${apiBase}/api${(!!!no_v1 && "/v1") || ""}/${endpoint}`;
   if (params) {
     const qs = new URLSearchParams(params).toString();
     url += `?${qs}`;
