@@ -43,7 +43,7 @@ export const checkRequiredOptionsAndReturn = (cmd: Command) => {
   };
 };
 
-export const requestPlaneAPi = async ({
+export const requestPlaneAPI = async ({
   apiKey,
   apiBase,
   endpoint,

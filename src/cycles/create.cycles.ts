@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { checkRequiredOptionsAndReturn, requestPlaneAPi } from "../utils";
+import { checkRequiredOptionsAndReturn, requestPlaneAPI } from "../utils";
 import { renderCycle } from "./list.cycles";
 
 // BUG: THIS ENDPOINT IS BROKEN FROM THE APP ITSELF. HOWEVER, THE CODE IS IN PLACE FOR IT TO WORK IF UPDATED
@@ -12,7 +12,7 @@ export const createCycle = new Command("create")
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPi({
+    const result = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/cycles`,

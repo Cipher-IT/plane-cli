@@ -1,12 +1,12 @@
 import { Command } from "commander";
-import { checkRequiredOptionsAndReturn, requestPlaneAPi } from "../utils";
+import { checkRequiredOptionsAndReturn, requestPlaneAPI } from "../utils";
 
 export const getCurrentUser = new Command("me")
   .description("Get current user")
   .action(async (__, cmd: Command) => {
     if (cmd.parent == null) return;
     const { apiKey, apiBase, json } = checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPi({
+    const result = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `users/me`,

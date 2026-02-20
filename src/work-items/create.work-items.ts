@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { checkRequiredOptionsAndReturn, requestPlaneAPi } from "../utils";
+import { checkRequiredOptionsAndReturn, requestPlaneAPI } from "../utils";
 import { renderWorkItem } from "./list.work-items";
 
 export const createWorkItem = new Command("create")
@@ -11,7 +11,7 @@ export const createWorkItem = new Command("create")
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPi({
+    const result = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/issues/`,

@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { checkRequiredOptionsAndReturn, requestPlaneAPi } from "../../utils";
+import { checkRequiredOptionsAndReturn, requestPlaneAPI } from "../../utils";
 
 export const listCyclesWorkItems = new Command("list-work-items")
   .description("List cycle work items")
@@ -9,7 +9,7 @@ export const listCyclesWorkItems = new Command("list-work-items")
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPi({
+    const result = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/cycles/${cycleId}/cycle-issues`,
