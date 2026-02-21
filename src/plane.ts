@@ -1,9 +1,20 @@
 #!/usr/bin/env node
 import { Command } from "commander";
-import { listProjects } from "./projects";
-import { createWorkItem, listWorkItems } from "./work-items";
-import { listStates } from "./states";
-import { listLabels } from "./labels";
+import {
+  createProject,
+  deleteProject,
+  listProjects,
+  updateProject,
+} from "./projects";
+import {
+  createWorkItem,
+  deleteWorkItem,
+  listWorkItems,
+  listWorkItemTypes,
+  updateWorkItem,
+} from "./work-items";
+import { createState, deleteState, listStates, updateState } from "./states";
+import { createLabel, deleteLabel, listLabels, updateLabel } from "./labels";
 import {
   createCycle,
   deleteCycle,
@@ -19,16 +30,40 @@ program.name("plane").description("CLI for api.plane.so").version("1.0.0");
 program
   .command("projects")
   .description("Manage projects")
-  .addCommand(listProjects);
+  .addCommand(listProjects)
+  .addCommand(createProject)
+  .addCommand(updateProject)
+  .addCommand(deleteProject);
 
 program
   .command("work-items")
   .description("Manage work items")
   .addCommand(listWorkItems)
-  .addCommand(createWorkItem);
+  .addCommand(createWorkItem)
+  .addCommand(updateWorkItem)
+  .addCommand(deleteWorkItem);
 
-program.command("states").description("Manage states").addCommand(listStates);
-program.command("labels").description("Manage labels").addCommand(listLabels);
+program
+  .command("work-item-types")
+  .description("Manage work item types")
+  .addCommand(listWorkItemTypes);
+
+program
+  .command("states")
+  .description("Manage states")
+  .addCommand(listStates)
+  .addCommand(createState)
+  .addCommand(updateState)
+  .addCommand(deleteState);
+
+program
+  .command("labels")
+  .description("Manage labels")
+  .addCommand(listLabels)
+  .addCommand(createLabel)
+  .addCommand(updateLabel)
+  .addCommand(deleteLabel);
+
 program
   .command("cycles")
   .description("Manage cycles")
