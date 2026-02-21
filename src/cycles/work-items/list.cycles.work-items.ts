@@ -3,13 +3,15 @@ import { checkRequiredOptionsAndReturn, requestPlaneAPI } from "../../utils";
 
 export const listCyclesWorkItems = new Command("list-work-items")
   .description("List cycle work items")
-  .argument("<projectId>", "Project ID")
-  .argument("<cycleId>", "Cycle ID")
-  .action(async (projectId, cycleId, __, cmd: Command) => {
+  .requiredOption("-p, --project-id <projectId>", "Project's ID")
+  .requiredOption("-c, --cycle-id <cycleId>", "Cycle's ID")
+  .action(async (__, cmd: Command) => {
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPI({
+    const projectId = cmd.getOptionValue("projectId");
+    const cycleId = cmd.getOptionValue("cycleId");
+    const { result } = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/cycles/${cycleId}/cycle-issues`,

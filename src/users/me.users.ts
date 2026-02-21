@@ -6,7 +6,7 @@ export const getCurrentUser = new Command("me")
   .action(async (__, cmd: Command) => {
     if (cmd.parent == null) return;
     const { apiKey, apiBase, json } = checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPI({
+    const { result } = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `users/me`,

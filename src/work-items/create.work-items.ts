@@ -4,19 +4,24 @@ import { renderWorkItem } from "./list.work-items";
 
 export const createWorkItem = new Command("create")
   .description("Create a new work-item")
-  .argument("<projectId>", "Project ID")
-  .argument("<name>", "Work item's name")
-  .argument("[description_html]", "Work item's description in HTML")
-  .action(async (projectId, name, description, __, cmd: Command) => {
+  .requiredOption("-p, --project-id <projectId>", "Project's ID")
+  .requiredOption("-n, --name <name>", "Work item's name")
+  .option(
+    "-d, --description [description_html]",
+    "Work item's description in HTML",
+  )
+  .action(async (__, cmd: Command) => {
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPI({
+    const projectId = cmd.getOptionValue("projectId");
+    const name = cmd.getOptionValue("name");
+    const description = cmd.getOptionValue("description");
+    const { result } = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/issues/`,
       method: "POST",
-      no_v1: true,
       body: {
         name,
         description,

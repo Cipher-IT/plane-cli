@@ -12,7 +12,7 @@ export const createCycle = new Command("create")
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
-    const result = await requestPlaneAPI({
+    const { result } = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/cycles`,

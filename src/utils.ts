@@ -34,7 +34,7 @@ export const checkRequiredOptionsAndReturn = (cmd: Command) => {
   checkApiKey(apiKey);
   checkApiBase(apiBase);
   checkWorkspaceSlug(workspaceSlug);
-  const json = cmd.args.indexOf("--json") != -1 || cmd.args.indexOf("-j") != -1;
+  const json = cmd.parent.getOptionValue("json");
   return {
     apiKey,
     apiBase,
@@ -73,7 +73,7 @@ export const requestPlaneAPI = async ({
   if (body) opts.body = JSON.stringify(body);
   try {
     const res = await fetch(url, opts);
-    return await res.json();
+    return { result: await res.json(), status: res.status };
   } catch (err) {
     console.error("Request failed:", err.message);
     process.exit(1);
