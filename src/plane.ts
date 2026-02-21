@@ -6,6 +6,7 @@ import { listStates } from "./states";
 import { listLabels } from "./labels";
 import {
   createCycle,
+  deleteCycle,
   listCycles,
   listCyclesWorkItems,
   updateCycle,
@@ -34,7 +35,8 @@ program
   .addCommand(listCycles)
   .addCommand(listCyclesWorkItems)
   .addCommand(createCycle)
-  .addCommand(updateCycle);
+  .addCommand(updateCycle)
+  .addCommand(deleteCycle);
 
 program.command("users").description("Manage users").addCommand(getCurrentUser);
 
