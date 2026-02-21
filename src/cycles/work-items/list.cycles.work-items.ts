@@ -11,19 +11,19 @@ export const listCyclesWorkItems = new Command("list-work-items")
       checkRequiredOptionsAndReturn(cmd);
     const projectId = cmd.getOptionValue("projectId");
     const cycleId = cmd.getOptionValue("cycleId");
-    const { result } = await requestPlaneAPI({
+    const { result, status } = await requestPlaneAPI({
       apiBase,
       apiKey,
-      endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/cycles/${cycleId}/cycle-issues`,
+      endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/cycles/${cycleId}/cycle-issues/`,
       method: "GET",
       params: {
         expand: "state,labels,assignees",
       },
     });
-    if (json) {
-      console.log(JSON.stringify(result));
-    } else {
-      console.table(result.results.map(renderCycleWorkItem));
+    if (json) console.log(JSON.stringify(result));
+    else {
+      if (status !== 200) console.table(result);
+      else console.table(result.results.map(renderCycleWorkItem));
     }
   });
 

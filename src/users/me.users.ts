@@ -6,16 +6,16 @@ export const getCurrentUser = new Command("me")
   .action(async (__, cmd: Command) => {
     if (cmd.parent == null) return;
     const { apiKey, apiBase, json } = checkRequiredOptionsAndReturn(cmd);
-    const { result } = await requestPlaneAPI({
+    const { result, status } = await requestPlaneAPI({
       apiBase,
       apiKey,
-      endpoint: `users/me`,
+      endpoint: `users/me/`,
       method: "GET",
     });
-    if (json) {
-      console.log(JSON.stringify(result));
-    } else {
-      console.table(renderUser(result));
+    if (json) console.log(JSON.stringify(result));
+    else {
+      if (status !== 200) console.table(result);
+      else console.table(renderUser(result));
     }
   });
 

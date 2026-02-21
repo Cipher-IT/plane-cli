@@ -9,16 +9,16 @@ export const listLabels = new Command("list")
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
     const projectId = cmd.getOptionValue("projectId");
-    const { result } = await requestPlaneAPI({
+    const { result, status } = await requestPlaneAPI({
       apiBase,
       apiKey,
-      endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/labels`,
+      endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/labels/`,
       method: "GET",
     });
-    if (json) {
-      console.log(JSON.stringify(result));
-    } else {
-      console.table(result.results.map(renderLabel));
+    if (json) console.log(JSON.stringify(result));
+    else {
+      if (status !== 200) console.table(result);
+      else console.table(result.results.map(renderLabel));
     }
   });
 

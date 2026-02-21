@@ -17,7 +17,7 @@ export const createWorkItem = new Command("create")
     const projectId = cmd.getOptionValue("projectId");
     const name = cmd.getOptionValue("name");
     const description = cmd.getOptionValue("description");
-    const { result } = await requestPlaneAPI({
+    const { result, status } = await requestPlaneAPI({
       apiBase,
       apiKey,
       endpoint: `workspaces/${workspaceSlug}/projects/${projectId}/issues/`,
@@ -31,6 +31,7 @@ export const createWorkItem = new Command("create")
     if (json) {
       console.log(JSON.stringify(result));
     } else {
-      console.table(renderWorkItem(result));
+      if (status !== 201) console.table(result);
+      else console.table(renderWorkItem(result));
     }
   });

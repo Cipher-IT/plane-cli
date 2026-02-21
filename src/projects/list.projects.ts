@@ -7,16 +7,16 @@ export const listProjects = new Command("list")
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
       checkRequiredOptionsAndReturn(cmd);
-    const { result } = await requestPlaneAPI({
+    const { result, status } = await requestPlaneAPI({
       apiBase,
       apiKey,
-      endpoint: `workspaces/${workspaceSlug}/projects`,
+      endpoint: `workspaces/${workspaceSlug}/projects/`,
       method: "GET",
     });
-    if (json) {
-      console.log(JSON.stringify(result));
-    } else {
-      console.table(result.results.map(renderProject));
+    if (json) console.log(JSON.stringify(result));
+    else {
+      if (status !== 200) console.table(result);
+      else console.table(result.results.map(renderProject));
     }
   });
 
