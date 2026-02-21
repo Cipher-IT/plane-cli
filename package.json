@@ -1,6 +1,6 @@
 {
-  "name": "plane-cli",
-  "version": "0.1.0",
+  "name": "@cipherly/plane-cli",
+  "version": "1.0.0",
   "description": "CLI for api.plane.so",
   "packageManager": "pnpm@8.8.0",
   "bin": {
@@ -8,7 +8,6 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/plane.js",
     "dev": "ts-node src/plane.ts"
   },
   "engines": {
