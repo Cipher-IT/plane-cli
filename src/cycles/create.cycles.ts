@@ -7,6 +7,8 @@ export const createCycle = new Command("create")
   .requiredOption("-p, --project-id <projectId>", "Project's ID")
   .requiredOption("-n, --name <name>", "Cycle's name")
   .option("-d, --description [description]", "Cycle's description")
+  .option("-sd, --start-date [startDate]", "Cycle's start date")
+  .option("-ed, --end-date [endDate]", "Cycle's end date")
   .action(async (__, cmd: Command) => {
     if (cmd.parent == null) return;
     const { apiKey, apiBase, workspaceSlug, json } =
@@ -14,6 +16,8 @@ export const createCycle = new Command("create")
     const projectId = cmd.getOptionValue("projectId");
     const name = cmd.getOptionValue("name");
     const description = cmd.getOptionValue("description");
+    const startDate = cmd.getOptionValue("startDate");
+    const endDate = cmd.getOptionValue("endDate");
     const { result, status } = await requestPlaneAPI({
       apiBase,
       apiKey,
@@ -23,6 +27,8 @@ export const createCycle = new Command("create")
         name,
         description,
         project_id: projectId,
+        start_date: startDate,
+        end_date: endDate,
       },
     });
     if (json) console.log(JSON.stringify(result));
