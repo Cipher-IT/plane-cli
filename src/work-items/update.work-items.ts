@@ -48,9 +48,9 @@ export const updateWorkItem = new Command("update")
     if (name !== undefined) body.name = name;
     if (description !== undefined) body.description = description;
     if (state !== undefined) body.state = state;
-    if (assignees !== undefined) body.assignees = assignees;
+    if (assignees !== undefined) body.assignees = assignees.split(",");
     if (priority !== undefined) body.priority = priority;
-    if (labels !== undefined) body.labels = labels;
+    if (labels !== undefined) body.labels = labels.split(",");
     if (parent_id !== undefined) body.parent = parent_id;
     if (estimate_point !== undefined) body.estimate_point = estimate_point;
     if (start_date !== undefined) body.start_date = start_date;
