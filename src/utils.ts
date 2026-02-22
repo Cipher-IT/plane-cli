@@ -67,6 +67,7 @@ export const requestPlaneAPI = async ({
   }
   const headers = {
     "X-API-Key": apiKey,
+    Authorization: `Bearer ${apiKey}`,
     "Content-Type": "application/json",
   };
   const opts = { method, headers, body };
