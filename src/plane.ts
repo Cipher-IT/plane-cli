@@ -23,6 +23,7 @@ import {
   updateCycle,
 } from "./cycles";
 import { getCurrentUser } from "./users";
+import { listEstimates } from "./estimates";
 
 const program = new Command();
 program.name("plane").description("CLI for api.plane.so").version("1.0.0");
@@ -74,6 +75,11 @@ program
   .addCommand(deleteCycle);
 
 program.command("users").description("Manage users").addCommand(getCurrentUser);
+
+program
+  .command("estimates")
+  .description("Manage estimates")
+  .addCommand(listEstimates);
 
 program.commands.forEach((cmd) => {
   cmd.requiredOption(
