@@ -3,6 +3,7 @@ import { Command } from "commander";
 import {
   createProject,
   deleteProject,
+  listProjectMembers,
   listProjects,
   updateProject,
 } from "./projects";
@@ -34,7 +35,8 @@ program
   .addCommand(listProjects)
   .addCommand(createProject)
   .addCommand(updateProject)
-  .addCommand(deleteProject);
+  .addCommand(deleteProject)
+  .addCommand(listProjectMembers);
 
 program
   .command("work-items")
