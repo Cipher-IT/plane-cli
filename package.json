@@ -1,6 +1,6 @@
 {
   "name": "@cipherly/plane-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI for api.plane.so",
   "packageManager": "pnpm@8.8.0",
   "bin": {
